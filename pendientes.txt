@@ -1,0 +1,28 @@
+Pendientes: 
+
+--posible barra de filtro
+--validar correo institucional y cambiar contraseña 
+--borrar publicaciones
+
+--checar linea 37  getProduct.php para redes sociales
+--checar linea 51 getProduct.php para fotos 
+
+
+--Nota: los productos del main salen de mas recientes a menos recientes
+
+
+
+
+------DESEABLES:
+-- crear apartados por campus
+-- optimización en el chat.
+ Por ahora esta implementado el método Paginación Infinita (Lazy Loading). sugerencia:
+	Dejar de preguntar y empezar a "escuchar" (WebSockets)
+Ahorita estamos usando una técnica llamada Polling (preguntar cada 3 segundos). Es como ir en el carro y que un niño te pregunte cada minuto "¿Ya llegamos?".
+
+La solución Pro: Se llama WebSockets. En lugar de preguntar, abres un "túnel" de comunicación permanente entre el usuario y el servidor. El servidor se queda callado, y solo cuando llega un mensaje nuevo, te lo empuja por el túnel. Cero estrés para el servidor.
+
+Nota de color: PHP no es el mejor lenguaje para WebSockets. Cuando tu marketplace explote en popularidad, muchísimas empresas construyen el motor de sus chats usando Python (con librerías como websockets o FastAPI) porque maneja esas conexiones simultáneas como un campeón, mientras dejan el resto de la tienda en PHP.
+
+-- ubicación del vendedor
+-- mapa

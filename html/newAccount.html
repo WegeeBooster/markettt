@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/styleLogin.css">
+  <title>Registro</title>
+  <style>
+    .login select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        background: white;
+        font-size: 14px;
+        color: #333;
+    }
+    .barra-fuerza {
+        height: 5px;
+        border-radius: 3px;
+        margin-top: 4px;
+        background: #ddd;
+        transition: all 0.3s;
+    }
+    .fuerza-debil  { background: #dc3545; width: 33%; }
+    .fuerza-media  { background: #ffc107; width: 66%; }
+    .fuerza-fuerte { background: #28a745; width: 100%; }
+    .texto-fuerza  { font-size: 12px; margin-top: 2px; color: #666;  }
+    #mensaje-registro { margin-top: 10px; font-size: 14px; text-align: center; }
+    .req-pass {
+        font-size: 12px;
+        color: #888;
+        margin: 15px 0 0 10px;
+
+    }
+  </style>
+
+</head>
+<body>
+    <div class="contenedor">
+        <form class="login" action="#" id="form-registro">
+
+          <img src="../marketplace_unison.png" alt="Logo">
+          <h2>Crear cuenta</h2>
+
+            <input type="text" id="nombre" placeholder="Nombre completo" aria-label="nombre" required>
+
+            <input type="email" id="correo" placeholder="Correo Institucional" aria-label="correo" pattern=".+@unison\.mx$" required>
+
+            <select id="departamento" aria-label="departamento" required>
+                <option value="" disabled selected>Departamento / Carrera</option>
+                <option value="Física">Física</option>
+                <option value="Matemáticas">Matemáticas</option>
+                <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                <option value="Ingeniería en Sistemas">Ingeniería en Sistemas</option>
+                <option value="Ingeniería Civil">Ingeniería Civil</option>
+                <option value="Ingeniería Química">Ingeniería Química</option>
+                <option value="Medicina">Medicina</option>
+                <option value="Enfermería">Enfermería</option>
+                <option value="Derecho">Derecho</option>
+                <option value="Administración">Administración</option>
+                <option value="Contabilidad">Contabilidad</option>
+                <option value="Psicología">Psicología</option>
+                <option value="Comunicación">Comunicación</option>
+                <option value="Arquitectura">Arquitectura</option>
+                <option value="Otro">Otro</option>
+            </select>
+
+            <p class="req-pass" >Mínimo 4 caracteres</p>
+             <div class="barra-fuerza" id="barra-fuerza-reg"></div>
+            <div class="texto-fuerza" id="texto-fuerza-reg"></div>
+
+            <input type="password" id="contra1" placeholder="Contraseña" aria-label="contra"
+                   required oninput="verificarFuerzaReg(this.value)">
+            <input type="password" id="contra2" placeholder="Repite la contraseña" aria-label="contra2" required>
+            <div id="mensaje-registro"></div>
+
+            <button type="submit" id="btn-registrar">Registrarse</button>
+
+
+            <a href="login.html" class="boton">Ya tengo una cuenta</a>
+        </form>
+    </div>
+
+<script>
+// ============================================================
+// ARCHIVO: javascript (inline) — newAccount.html
+// ============================================================
+
+function verificarFuerzaReg(valor) {
+    const barra = document.getElementById('barra-fuerza-reg');
+    const texto = document.getElementById('texto-fuerza-reg');
+    barra.className = 'barra-fuerza';
+    if (!valor) { texto.textContent = ''; return; }
+
+    const tieneNum = /\d/.test(valor);
+    const tieneMay = /[A-Z]/.test(valor);
+    const tieneEsp = /[^A-Za-z0-9]/.test(valor);
+    const largo    = valor.length >= 4;
+    const puntos   = [tieneNum, tieneMay, tieneEsp, largo].filter(Boolean).length;
+
+    if (puntos <= 1) {
+        barra.classList.add('fuerza-debil');
+        texto.textContent = 'Contraseña débil';
+        texto.style.color = '#dc3545';
+    } else if (puntos <= 3) {
+        barra.classList.add('fuerza-media');
+        texto.textContent = 'Contraseña aceptable';
+        texto.style.color = '#856404';
+    } else {
+        barra.classList.add('fuerza-fuerte');
+        texto.textContent = 'Contraseña fuerte ✓';
+        texto.style.color = '#155724';
+    }
+}
+
+
+document.getElementById('form-registro').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+
+    const msgEl     = document.getElementById('mensaje-registro');
+    const nombre    = document.getElementById('nombre').value.trim();
+    const correo    = document.getElementById('correo').value.trim();
+    const depto     = document.getElementById('departamento').value;
+    const pass1     = document.getElementById('contra1').value;
+    const pass2     = document.getElementById('contra2').value;
+    const btn       = document.getElementById('btn-registrar');
+
+    // Validaciones
+    if (!nombre || !correo || !depto || !pass1 || !pass2) {
+        msgEl.style.color = 'red';
+        msgEl.textContent = 'Completa todos los campos.';
+        return;
+    }
+    if (pass1.length < 4) {
+        msgEl.style.color = 'red';
+        msgEl.textContent = 'La contraseña debe tener al menos 4 caracteres.';
+        return;
+    }
+    if (pass1 !== pass2) {
+        msgEl.style.color = 'red';
+        msgEl.textContent = 'Las contraseñas no coinciden.';
+        return;
+    }
+
+    // Verificamos si el correo termina exactamente con el dominio
+    const dominioPermitido = "@unison.mx";
+    if (!correo.endsWith(dominioPermitido)) {
+        alert("Por favor, utiliza tu correo institucional de la Unison.");
+        return; // Detenemos la función, no enviamos nada al servidor
+    }
+
+
+    console.log("Correo válido, enviando al servidor...");
+
+    btn.disabled     = true;
+    msgEl.style.color = 'blue';
+    msgEl.textContent = 'Creando cuenta...';
+
+    try {
+        const res  = await fetch('../back-end/register.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre, correo, password: pass1, departamento: depto })
+        });
+        const data = await res.json();
+
+        if (data.exito) {
+            msgEl.style.color = 'green';
+            msgEl.textContent =  data.mensaje + ' Redirigiendo...';
+            setTimeout(() => { window.location.href = 'main.html'; }, 1200);
+        } else {
+            msgEl.style.color = 'red';
+            msgEl.textContent = 'No se pudo crear la cuenta: ' + data.error;
+        }
+    } catch (err) {
+        msgEl.style.color = 'red';
+        msgEl.textContent = 'Error al conectar con el servidor.';
+    } finally {
+        btn.disabled = false;
+    }
+});
+</script>
+
+</body>
+
+</html>

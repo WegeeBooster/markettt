@@ -1,0 +1,576 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f2f2;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/*ESTILO DE LA PARTE DE ARRIBA DE LA NAVEGACION*/
+.header {
+    background-color: #f4a261;
+}
+
+header h1 {
+    text-align: center;
+    color: #1a237e;
+    font-size: 24px;
+    margin:10px 10px;
+    padding:0 20px;
+
+}
+
+
+.cabecera {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 30px;
+    width: auto;
+
+}
+
+.cabecera a {
+    text-decoration: none;
+    color: black;
+}
+
+/*diseño solo para el campo de busqueda */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.search-input {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 2px solid black;
+    padding-left: 40px;
+    transition: all 0.4s ease;
+    outline: none;
+    cursor: pointer;
+    background: white;
+}
+
+.search-input:focus {
+    width: 200px;
+    cursor: text;
+
+}
+.search-input::placeholder {
+    color: transparent; /* Hacemos el texto invisible */
+    transition: color 0.3s ease; /* Una pequeña animación para que no aparezca de golpe */
+}
+
+/* 2. Estado focus (cuando le das clic o se expande) */
+.search-input:focus::placeholder {
+    color: #999; /* Aparece el color gris clásico del placeholder */
+}
+
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+/*fin del diseño de la barra de busqueda*/
+
+/*fin del diseño del header*/
+
+
+/*divisor contiene a sidebar y toda la area de productos*/
+.divisor {
+    display: flex;
+    min-height: 100vh; /*hace que ocupe toda la pantalla y no se vea mocho*/
+}
+
+
+/*diseño del sidebar*/
+.sidebar {
+    min-width: 150px;
+    width: 14%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: rgba(142, 208, 255, 0.59);
+
+}
+
+#logo {
+    display: flex;
+    width: 80%;
+    align-self: center;
+
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn {
+    width: 100%;
+    height: 60px;
+    padding: 14px;
+    border-radius: 50px; /* bordes redondeados */
+    border: 2px solid #333;
+    background-color: #ddd;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn.activo {
+    background-color: #1a237e; /* azul oscuro */
+    color: white;
+    border-color: #1a237e;
+}
+
+.btn:hover {
+    background-color: #b0b0b0; /* efecto hover */
+}
+
+/*fin del diseño del sidebar*/
+
+
+/*diseño del apartado de los prodctos*/
+.div-productos {
+    padding: 20px;
+}
+
+/*Inicio de la prueba------------------------------------------------------------------------*/
+:root {
+    --color-fondo: #f5f5f5;
+    --color-blanco: #ffffff;
+    --color-texto: #1a1a1a;
+    --color-secundario: #666666;
+    --color-borde: #e0e0e0;
+    --color-acento: #2563eb; /* Azul para botones activos */
+    --color-hover: #f0f0f0;
+    --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --radio-borde: 12px; /* Qué tan redondeadas son las esquinas */
+}
+
+/* ----- CONTENIDO PRINCIPAL ----- */
+main {
+    max-width: 1400px;
+    margin: 0 10px;
+    padding: 1.5rem 2rem;
+    /*No tocar por nada del mundo */
+    flex-grow: 1;           /* Le dice al main: "Toma todo el espacio libre que quede a la derecha" */
+    min-width: 0;           /* Evita un bug raro de desbordamiento en flexbox */
+}
+
+/* ----- FILTROS DE CATEGORÍA ----- */
+.filtros {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.btn-categoria {
+    padding: 6px 16px;
+    border: 1px solid var(--color-borde);
+    border-radius: 999px; /* Pastilla completamente redondeada */
+    background: var(--color-blanco);
+    color: var(--color-secundario);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn-categoria:hover {
+    border-color: #aaa;
+    color: var(--color-texto);
+}
+
+/* Clase "activo" para el botón seleccionado */
+.btn-categoria.activo {
+    background: var(--color-texto);
+    color: var(--color-blanco);
+    border-color: var(--color-texto);
+}
+
+/* ----- INFORMACIÓN DE RESULTADOS ----- */
+.info-resultados {
+    font-size: 0.875rem;
+    color: var(--color-secundario);
+    margin-bottom: 1rem;
+}
+
+/* ----- GRID DE TARJETAS ----- */
+/* auto-fill + minmax = crea tantas columnas como quepan,
+               cada una de mínimo 220px y máximo 1fr (espacio disponible) */
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+/* ----- TARJETA DE PRODUCTO ----- */
+.tarjeta {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-borde);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Efecto al pasar el mouse encima */
+.tarjeta:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-suave);
+}
+
+/* La imagen del producto */
+.tarjeta-imagen {
+    width: 100%;
+    height: 200px !important; /* Le forzamos la altura */
+    flex: 0 0 200px; /*  Le prohibimos a esta caja crecer o encogerse */
+    overflow: hidden;
+    padding: 0 !important;
+}
+
+.tarjeta-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;/*otra opcion es "contain"  */
+    display: block;
+}
+
+.tarjeta-cuerpo {
+    flex: 1; /* Esto le dice al texto: "Tú toma todo el espacio que sobra" */
+    padding: 15px; /* Para que el texto no se pegue a las orillas */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Badge de categoría */
+.tarjeta-categoria {
+    font-size: 0.7rem;
+    color: var(--color-acento);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.tarjeta-nombre {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-texto);
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.tarjeta-descripcion {
+    font-size: 0.8rem;
+    color: var(--color-secundario);
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Fila de precio y calificación */
+.tarjeta-pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tarjeta-precio {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-texto);
+}
+
+.tarjeta-rating {
+    font-size: 0.78rem;
+    color: var(--color-secundario);
+}
+
+/* ----- ESTADOS ESPECIALES ----- */
+
+/* Cuando está cargando datos */
+.estado-cargando {
+    text-align: center;
+    padding: 3rem;
+    color: var(--color-secundario);
+    font-size: 1rem;
+    grid-column: 1 / -1; /* Ocupa todas las columnas */
+}
+
+/* Cuando no hay resultados */
+.estado-vacio {
+    text-align: center;
+    padding: 3rem;
+    color: var(--color-secundario);
+    font-size: 0.95rem;
+    grid-column: 1 / -1;
+}
+
+/* Cuando hay un error de conexión */
+.estado-error {
+    text-align: center;
+    padding: 3rem;
+    color: #dc2626;
+    font-size: 0.95rem;
+    grid-column: 1 / -1;
+}
+
+/*------------------prieba----------------------------------------*/
+
+/* =========================================================
+   ESTILOS DE LOS BOTONES DE CATEGORÍA
+   ========================================================= */
+.btn-categoria {
+    display: block;          /* Hace que el botón se comporte como un bloque */
+    width: 100%;             /* Todos los botones medirán lo mismo de ancho */
+    padding: 12px 15px;      /* Espacio interno para que no se vean apretados */
+    margin-bottom: 8px;      /* Separación entre botones */
+    border: none;
+    border-radius: 8px;      /* Bordes redondeados modernos */
+    background-color: #f8f9fa; /* Color gris muy clarito por defecto */
+    color: #333;
+    font-size: 16px;
+    text-align: left;        /* Texto alineado a la izquierda se lee mejor en listas */
+    cursor: pointer;
+    transition: background-color 0.2s ease; /* Animación suave */
+}
+
+/* Efecto cuando pasas el mouse por encima */
+.btn-categoria:hover {
+    background-color: #e2e6ea;
+}
+
+/* El botón que está seleccionado actualmente */
+.btn-categoria.activo {
+    background-color: #007bff; /* Cambia esto al color principal de tu uni/app */
+    color: white;
+    font-weight: bold;
+}
+
+
+
+
+
+/* =========================================================
+   WAFFLE MENU (Menú de 9 puntos)
+   ========================================================= */
+.menu-waffle-contenedor {
+    position: relative; /* Para que la lista flote justo debajo de este ícono */
+    display: inline-block;
+}
+
+.btn-waffle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5f6368; /* Color gris tipo Google */
+    transition: background-color 0.2s ease;
+}
+
+/* El circulito gris que sale cuando le pasas el mouse por encima */
+.btn-waffle:hover {
+    background-color: #f1f3f4;
+}
+
+.dropdown-waffle {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 100%;
+    right: 0; /* Alineado a la derecha */
+    left: auto;
+    background-color: #ffffff;
+    min-width: 220px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Sombrita elegante */
+    border-radius: 8px;
+    padding: 8px 0;
+    z-index: 1000; /* Asegura que siempre esté por encima de todo */
+}
+
+/* Esta clase se la vamos a poner y quitar con JavaScript */
+.dropdown-waffle.activo {
+    display: block;
+}
+
+.item-dropdown {
+    display: block;
+    padding: 12px 20px;
+    color: #3c4043;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background-color 0.2s;
+}
+
+.item-dropdown:hover {
+    background-color: #f1f3f4;
+}
+
+.divisor-dropdown {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 8px 0;
+}
+
+.text-rojo {
+    color: #d93025 !important;
+}
+
+/*------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------*/
+
+@media(max-width: 1440px) {
+    .filtros{
+        display: none;
+    }
+
+}
+
+
+
+/*  responsive para tablet*/
+@media (max-width: 768px) {
+    #logo {display: none  }
+
+    /* Cambiamos la dirección para que se apilen verticalmente */
+    .divisor {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+
+    main{
+        width: auto;
+        margin: 0;
+        padding: 20px;
+    }
+
+    /* Convertimos el contenedor de botones en un scroll horizontal (Estilo YouTube) */
+    #contenedorFiltros {
+        display: flex;
+        flex-direction: row;     /* Los ponemos en fila */
+        overflow-x: auto;        /* Activamos el scroll horizontal si no caben */
+        gap: 10px;               /* Espacio entre botones */
+        padding-bottom: 10px;    /* Espacio para la barrita de scroll */
+    }
+
+    /* Ajustamos los botones solo para el celular */
+    .btn-categoria {
+        width: auto;             /* Volvemos a dejar que tomen su tamaño natural */
+        margin-bottom: 0;        /* Quitamos el margen de abajo */
+        white-space: nowrap;     /* Forzamos a que el texto "Electrónicos" no se parta en dos líneas */
+        text-align: center;      /* Centramos el texto del botón */
+        flex-shrink: 0;          /* Evitamos que los botones se aplasten entre sí */
+    }
+
+    /* Ocultar la barra de scroll en celulares para que se vea más limpio */
+    #contenedorFiltros::-webkit-scrollbar {
+        display: none;
+    }
+
+    /*Por alguna razon si la cambio a aside no funciona*/
+    /* El sidebar ahora ocupa todo el ancho arriba */
+    .sidebar {
+        width: 100% !important;
+        min-width: 100%;
+        display: flex !important;
+        flex-direction: row;
+        overflow-x: auto; /* Si hay muchos botones, permite scroll horizontal */
+        padding: 10px;
+        gap: 8px;
+    }
+
+
+    .sidebar nav {
+        flex-direction: row; /* Menú en horizontal */
+        width: auto;
+    }
+
+    .btn {
+        height: auto;
+        padding: 8px 15px;
+        white-space: nowrap; /* Evita que el texto del botón se rompa en 2 líneas */
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/* responsive para celular */
+@media (max-width: 480px) {
+
+    header h1{  display: none   }
+
+    h4 { display: none }
+
+    .header{
+        margin:0;
+        justify-content: flex-end;
+
+    }
+
+    .search-container {
+        width: 180px;
+
+    }
+
+    .header{
+        margin:0;
+        justify-content: flex-end;
+
+    }
+
+    /* Asegúrate de que el sidebar siga siendo un flexbox */
+    .sidebar {
+        display: flex;
+
+    }
+
+    /* El contenedor principal de productos */
+    .div-productos {
+        padding: 10px;
+    }
+
+
+}
+
+
+
+

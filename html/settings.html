@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Perfil - Market Unison</title>
+    <link rel="stylesheet" href="../css/styleMain.css">
+    <style>
+        /* Reset básico para evitar desbordamientos en móvil */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f5f6fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container-config {
+            width: 92%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        /* Grid responsivo: 2 columnas en PC, 1 columna en Móvil */
+        .grid-config {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 768px) {
+            .grid-config {
+                grid-template-columns: 1fr; /* Colapsa a una sola columna */
+                gap: 20px;
+            }
+        }
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #1a237e;
+            font-size: 14px;
+        }
+        .form-group input, .form-group select {
+            width: 100%; /* Ocupa el ancho completo de su contenedor */
+            padding: 12px;
+            border: 1px solid #ccd1d9;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #fff;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #1a237e;
+            outline: none;
+        }
+        .avatar-preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            border: 2px dashed #ccd1d9;
+            border-radius: 12px;
+            background: #f8f9fa;
+            width: 100%;
+        }
+        .avatar-preview {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover; /* Evita que la foto se distorsione o aplaste */
+            border: 3px solid #f4a261;
+            background: #e6e9ed;
+        }
+        /* Input file estilizado para que no se vea feo en teléfonos */
+        .foto-input-wrapper {
+            width: 100%;
+            text-align: center;
+        }
+        .foto-input-wrapper input[type="file"] {
+            font-size: 14px;
+            color: #555;
+        }
+        .btn-guardar {
+            grid-column: 1 / -1; /* Hace que el botón abarque todo el ancho disponible */
+            background-color: #1a237e;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            margin-top: 10px;
+        }
+        .btn-guardar:hover { background-color: #0d134a; }
+        .btn-guardar:active { transform: scale(0.98); }
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+
+    <header class="header" style="background:#f4a261; padding: 15px;">
+        <div class="cabecera" style="max-width: 900px; margin: 0 auto; width: 92%;">
+            <a href="main.html" style=" text-decoration: none; font-weight: bold; font-size: 16px;">← Volver a mi Perfil</a>
+        </div>
+    </header>
+
+    <div class="container-config">
+        <h2 style="margin-bottom: 20px; color: #1a237e; font-size: 22px;">Configurar mi Cuenta</h2>
+
+        <div id="alert-msg" class="alert"></div>
+
+        <form id="form-config" enctype="multipart/form-data" class="grid-config">
+            <div>
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Cargando...">
+                </div>
+
+                <div class="form-group">
+                    <label for="departamento">Departamento de la Universidad</label>
+                    <select id="departamento" name="departamento" required>
+                        <option value="Ingeniería">División de Ingeniería</option>
+                        <option value="Económico-Administrativas">Económico-Administrativas</option>
+                        <option value="Ciencias Exactas">Ciencias Exactas y Naturales</option>
+                        <option value="Sociales">Ciencias Sociales</option>
+                        <option value="Biológicas">Ciencias Biológicas y de la Salud</option>
+                        <option value="Humanidades">Humanidades y Bellas Artes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="horario">Horario habitual en el campus</label>
+                    <input type="text" id="horario" name="horario" placeholder="Ej: Lunes a Viernes de 7am a 1pm">
+                </div>
+
+                <div class="form-group">
+                    <label for="correo">Correo</label>
+                     <input type="text" id="correo" name="correo" readonly>
+                </div>
+            </div>
+
+
+            <div>
+                <div class="form-group">
+                    <label>Foto de Perfil</label>
+                    <div class="avatar-preview-container">
+                        <img id="img-preview" src="../uploads/default-avatar.jpg" class="avatar-preview" alt="Vista previa">
+                        <div class="foto-input-wrapper">
+                            <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color: #1a237e; font-size: 16px; margin: 15px 0 10px 0; border-bottom: 1px solid #e6e9ed; padding-bottom: 5px;">Redes Sociales de Contacto</h3>
+                <div class="form-group">
+                    <label for="whatsapp">WhatsApp (Número o Enlace)</label>
+                    <input type="text" id="whatsapp" name="whatsapp" placeholder="Ej: 662XXXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="instagram">Instagram (Usuario)</label>
+                    <input type="text" id="instagram" name="instagram" placeholder="Ej: @tu_usuario">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-guardar">Actualizar Perfil</button>
+        </form>
+    </div>
+
+    <script src="../javascript/settings.js"></script>
+</body>
+</html>

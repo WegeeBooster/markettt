@@ -1,0 +1,124 @@
+<!-- Pagína donde se encuentra todos los chats que
+    ha tenido el usuario-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Chats | Marketplace Unison</title>
+    <link rel="stylesheet" href="../css/styleMain.css">
+    <style>
+        /* Estilos específicos para la bandeja (puedes pasarlos a un styleBandeja.css si prefieres) */
+        .contenedor-bandeja {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .titulo-bandeja {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #1c1e21;
+        }
+        .lista-chats {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .tarjeta-chat {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .tarjeta-chat:hover {
+            background-color: #f0f2f5;
+            transform: translateY(-2px);
+        }
+        .avatar-chat {
+            width: 60px;
+            height: 60px;
+            background-color: #e4e6eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        .info-chat {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+        .nombre-contacto {
+            font-weight: bold;
+            font-size: 16px;
+            margin: 0 0 4px 0;
+        }
+        .titulo-producto-chat {
+            font-size: 13px;
+            color: #0084ff;
+            margin: 0 0 4px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .ultimo-mensaje {
+            font-size: 14px;
+            color: #65676b;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .estado-vacio {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+       /* ---------------------------------------------------
+       FORZAR QUE LA CABECERA SE VEA EN EL PRODUCTO
+       --------------------------------------------------- */
+
+        .header {
+            display: block !important; /* El !important es como un manotazo en la mesa para que ignore el otro CSS */
+            width: 100%;
+            /*background-color: #ffffff; !* O el color naranja que estés usando *!*/
+        }
+
+        .cabecera {
+            display: flex !important;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        h4{ display: flex !important;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="cabecera">
+            <h4 onclick="window.location.href='main.html'" >⬅ Volver al MarketPlace</h4>
+        </div>
+    </header>
+
+    <main class="contenedor-bandeja">
+        <h1 class="titulo-bandeja">Mensajes</h1>
+
+        <div class="lista-chats" id="contenedor-lista-chats">
+            <div class="estado-vacio">Cargando tus conversaciones... ⏳</div>
+        </div>
+    </main>
+
+    <script src="../javascript/inbox.js"></script>
+</body>
+</html>

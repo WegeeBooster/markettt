@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Header Responsive</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0f;
+      --surface: #16161a;
+      --surface2: #1e1e24;
+      --border: rgba(255,255,255,0.07);
+      --accent: #c8ff00;
+      --accent2: #00e5ff;
+      --text: #f0f0f5;
+      --muted: #6b6b7a;
+      --radius: 12px;
+      --header-h: 68px;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-h);
+      background: rgba(13,13,15,0.85);
+      backdrop-filter: blur(18px) saturate(1.4);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 16px;
+      animation: slideDown .45s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to   { transform: translateY(0);     opacity: 1; }
+    }
+
+    /* ── LOGO ── */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .logo-mark {
+      width: 34px; height: 34px;
+      background: var(--accent);
+      border-radius: 9px;
+      display: grid; place-items: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: #000;
+      letter-spacing: -.5px;
+      transition: transform .2s ease;
+    }
+    .logo:hover .logo-mark { transform: rotate(-6deg) scale(1.08); }
+    .logo-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -.3px;
+      color: var(--text);
+    }
+    .logo-name span { color: var(--accent); }
+
+    /* ── SEARCH ── */
+    .search-wrap {
+      flex: 1;
+      max-width: 460px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .search-wrap .icon {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+      transition: color .2s;
+    }
+    .search-input {
+      width: 100%;
+      height: 40px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 0 16px 0 42px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+    .search-input::placeholder { color: var(--muted); }
+    .search-input:focus {
+      background: var(--surface);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200,255,0,.1);
+    }
+    .search-input:focus + .icon,
+    .search-wrap:focus-within .icon { color: var(--accent); }
+
+    /* Kbd hint */
+    .search-kbd {
+      position: absolute;
+      right: 12px; top: 50%;
+      transform: translateY(-50%);
+      display: flex; gap: 3px;
+      pointer-events: none;
+    }
+    .search-kbd kbd {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      font-size: 10px;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+    }
+    .search-input:focus ~ .search-kbd { opacity: 0; }
+
+    /* ── RIGHT ACTIONS ── */
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Login button */
+    .btn-login {
+      height: 38px;
+      padding: 0 18px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color .2s, background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .btn-login:hover {
+      border-color: rgba(255,255,255,.25);
+      background: var(--surface2);
+    }
+
+    /* Profile avatar */
+    .btn-profile {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c8ff00 0%, #00e5ff 100%);
+      border: none;
+      cursor: pointer;
+      display: grid; place-items: center;
+      position: relative;
+      transition: transform .2s, box-shadow .2s;
+      flex-shrink: 0;
+    }
+    .btn-profile:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 0 3px rgba(200,255,0,.2), 0 4px 16px rgba(0,0,0,.4);
+    }
+    .btn-profile svg { color: #000; }
+
+    /* Online dot */
+    .btn-profile::after {
+      content: '';
+      position: absolute;
+      bottom: 1px; right: 1px;
+      width: 9px; height: 9px;
+      background: #22c55e;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+    }
+
+    /* Profile dropdown */
+    .profile-wrap {
+      position: relative;
+    }
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      width: 220px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px) scale(.97);
+      transform-origin: top right;
+      transition: opacity .2s, transform .2s;
+    }
+    .profile-wrap.open .dropdown {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0) scale(1);
+    }
+    .dropdown-header {
+      padding: 10px 10px 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 6px;
+    }
+    .dropdown-header .name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .dropdown-header .email {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      color: var(--text);
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .dropdown a:hover { background: var(--surface2); }
+    .dropdown a svg { color: var(--muted); flex-shrink: 0; }
+    .dropdown .divider { height: 1px; background: var(--border); margin: 6px 0; }
+    .dropdown .logout { color: #ff6b6b; }
+    .dropdown .logout svg { color: #ff6b6b; }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE NAV DRAWER ── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--header-h);
+      left: 0; right: 0;
+      background: rgba(13,13,15,.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px 24px;
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s, transform .25s;
+      z-index: 99;
+    }
+    .mobile-menu.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    .mobile-search {
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .mobile-search .icon {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+    .mobile-search input {
+      width: 100%;
+      height: 44px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 0 16px 0 42px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+    }
+    .mobile-search input::placeholder { color: var(--muted); }
+    .mobile-search input:focus { border-color: var(--accent); }
+
+    .mobile-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 4px;
+      border-top: 1px solid var(--border);
+    }
+    .mobile-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c8ff00 0%, #00e5ff 100%);
+      display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .mobile-user-info .name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; }
+    .mobile-user-info .role { font-size: 12px; color: var(--muted); }
+
+    .mobile-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 6px;
+    }
+    .mobile-actions a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      color: var(--text);
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .mobile-actions a:hover { background: var(--surface2); }
+    .mobile-actions a svg { color: var(--muted); }
+    .btn-login-mobile {
+      width: 100%;
+      height: 46px;
+      background: var(--accent);
+      border: none;
+      border-radius: 40px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #000;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: opacity .2s;
+    }
+    .btn-login-mobile:hover { opacity: .88; }
+
+    /* ── DEMO CONTENT ── */
+    .demo {
+      max-width: 800px;
+      margin: 80px auto;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .demo h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.5px;
+    }
+    .demo h1 span { color: var(--accent); }
+    .demo p { color: var(--muted); margin-top: 14px; font-size: 16px; line-height: 1.6; }
+    .pill {
+      display: inline-block;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 4px 14px;
+      font-size: 12px;
+      color: var(--accent2);
+      margin-bottom: 20px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .search-wrap, .btn-login { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: block; }
+      /* Show avatar on mobile always */
+      .btn-profile { display: grid; }
+    }
+
+    @media (max-width: 400px) {
+      .logo-name { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <!-- Logo -->
+  <a class="logo" href="#">
+    <div class="logo-mark">N</div>
+    <span class="logo-name">Nova<span>.</span></span>
+  </a>
+
+  <!-- Search (desktop) -->
+  <div class="search-wrap">
+    <svg class="icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input class="search-input" type="search" placeholder="Buscar…" aria-label="Buscar"/>
+    <div class="search-kbd">
+      <kbd>⌘</kbd><kbd>K</kbd>
+    </div>
+  </div>
+
+  <!-- Actions (desktop) -->
+  <div class="actions">
+    <button class="btn-login" id="loginBtn">Iniciar sesión</button>
+
+    <div class="profile-wrap" id="profileWrap">
+      <button class="btn-profile" id="profileBtn" aria-label="Perfil">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+      <div class="dropdown" id="dropdown" role="menu">
+        <div class="dropdown-header">
+          <div class="name">María García</div>
+          <div class="email">maria@novahq.io</div>
+        </div>
+        <a href="#"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Mi perfil</a>
+        <a href="#"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Dashboard</a>
+        <a href="#"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.42 1.42M4.93 4.93l1.42 1.42M12 2v2M12 20v2M20 12h2M2 12h2M19.07 19.07l-1.42-1.42M4.93 19.07l1.42-1.42"/></svg> Configuración</a>
+        <div class="divider"></div>
+        <a href="#" class="logout"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar sesión</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hamburger (mobile) -->
+  <button class="hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Mobile drawer -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-search">
+    <svg class="icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="search" placeholder="Buscar…" aria-label="Buscar"/>
+  </div>
+
+  <div class="mobile-user">
+    <div class="mobile-avatar">
+      <svg width="20" height="20" fill="none" stroke="#000" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div class="mobile-user-info">
+      <div class="name">María García</div>
+      <div class="role">Plan Pro · novahq.io</div>
+    </div>
+  </div>
+
+  <div class="mobile-actions">
+    <a href="#"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Mi perfil</a>
+    <a href="#"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Dashboard</a>
+    <a href="#"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.42 1.42M4.93 4.93l1.42 1.42M12 2v2M12 20v2M20 12h2M2 12h2M19.07 19.07l-1.42-1.42M4.93 19.07l1.42-1.42"/></svg> Configuración</a>
+  </div>
+
+  <button class="btn-login-mobile">Iniciar sesión</button>
+</div>
+
+<!-- Demo page content -->
+<div class="demo">
+  <div class="pill">Responsive Header Demo</div>
+  <h1>Hecho para <span>moverse</span><br/>en cualquier pantalla.</h1>
+  <p>Redimensiona la ventana para ver el comportamiento responsive.<br/>En móvil aparece el menú hamburguesa con el buscador y las acciones.</p>
+</div>
+
+<script>
+  // Profile dropdown
+  const profileWrap = document.getElementById('profileWrap');
+  const profileBtn  = document.getElementById('profileBtn');
+  profileBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    profileWrap.classList.toggle('open');
+  });
+  document.addEventListener('click', () => profileWrap.classList.remove('open'));
+
+  // Mobile menu
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Keyboard shortcut ⌘K / Ctrl+K
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      document.querySelector('.search-input')?.focus();
+    }
+  });
+</script>
+</body>
+</html>

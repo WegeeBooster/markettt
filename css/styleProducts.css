@@ -1,0 +1,165 @@
+.cabecera {
+    padding: 15px 20px !important;
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL DEL PRODUCTO
+   ========================================================= */
+.contenedor-producto {
+    max-width: 1000px; /* Evita que se estire demasiado en monitores gigantes */
+    margin: 40px auto; /* Lo centra en la pantalla */
+    padding: 0 20px;
+
+    /* LA MAGIA DEL GRID */
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* Izquierda un poco más ancha que la derecha */
+    gap: 40px; /* Separación entre fotos e info */
+    align-items: start; /* Para que la info no se estire hacia abajo innecesariamente */
+}
+
+/* =========================================================
+   SECCIÓN IZQUIERDA: FOTOS
+   ========================================================= */
+.seccion-fotos {
+    width: 100%;
+}
+
+.foto-principal {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Mantiene la foto cuadrada */
+    background-color: #f0f2f5;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* =========================================================
+   SECCIÓN DERECHA: INFORMACIÓN
+   ========================================================= */
+.seccion-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.etiqueta-categoria {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: 1px;
+}
+
+.titulo-producto {
+    font-size: 28px;
+    color: #1c1e21;
+    margin: 5px 0 10px 0;
+}
+
+.precio-producto {
+    font-size: 24px;
+    color: #28a745; /* Verde tipo dinero */
+    font-weight: bold;
+    margin: 0;
+}
+
+.descripcion-producto {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.5;
+}
+
+.divisor-linea {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+/* =========================================================
+   TARJETA DEL VENDEDOR Y BOTÓN
+   ========================================================= */
+.tarjeta-vendedor {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+.avatar-vendedor {
+    width: 50px;
+    height: 50px;
+    background-color: #e4e6eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.nombre-vendedor {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0 0 5px 0;
+}
+
+.facultad-vendedor {
+    color: #65676b;
+    font-size: 14px;
+    margin: 0;
+}
+
+.btn-mensaje {
+    width: 100%;
+    padding: 15px;
+    background-color: #0084ff; /* Azul tipo Messenger */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-mensaje:hover {
+    background-color: #006bce;
+}
+
+/* =========================================================
+   RESPONSIVE PARA CELULARES Y TABLETS
+   ========================================================= */
+@media (max-width: 768px) {
+    /* ---------------------------------------------------
+       FORZAR QUE LA CABECERA SE VEA EN EL PRODUCTO
+       --------------------------------------------------- */
+
+    .header {
+        display: block !important; /* El !important es como un manotazo en la mesa para que ignore el otro CSS */
+        width: 100%;
+        /*background-color: #ffffff; !* O el color naranja que estés usando *!*/
+    }
+
+    .cabecera {
+        display: flex !important;
+        align-items: center;
+        padding: 15px 20px;
+    }
+
+    h4{
+        display: flex !important;
+    }
+
+    .contenedor-producto {
+        /* Cambiamos el grid a una sola columna */
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin: 20px auto;
+    }
+
+    .titulo-producto {
+        font-size: 24px;
+    }
+}

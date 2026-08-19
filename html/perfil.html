@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styleMain.css">
+    <title>Mi Perfil — Marketplace Unison</title>
+    <style>
+        /* ── Variables ── */
+        :root {
+            --naranja: #f4a261;
+            --azul-dark: #1a237e;
+            --azul-acento: #007BFF;
+            --gris-fondo: #f2f2f2;
+            --blanco: #fff;
+            --borde: #e0e0e0;
+            --texto: #1a1a1a;
+            --secundario: #666;
+            --sombra: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        body { background: var(--gris-fondo); font-family: Arial, Helvetica, sans-serif; margin: 0; }
+
+        /* ── Layout ── */
+        .perfil-wrapper {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 24px;
+        }
+
+        /* ── Tarjeta izquierda (info del usuario) ── */
+        .card {
+            background: var(--blanco);
+            border-radius: 14px;
+            box-shadow: var(--sombra);
+            padding: 28px 24px;
+        }
+
+        /* Avatar */
+        .avatar-contenedor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--borde);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--naranja);
+        }
+
+        .avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--naranja), var(--azul-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            color: white;
+            border: 3px solid var(--naranja);
+            font-weight: bold;
+        }
+
+        .nombre-perfil {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--azul-dark);
+            text-align: center;
+            margin: 0;
+        }
+
+        .badge-tipo {
+            background: var(--naranja);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 999px;
+            text-transform: capitalize;
+        }
+
+        /* Estrellas */
+        .estrellas-perfil {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 18px;
+        }
+        .estrellas-perfil span.num {
+            font-size: 14px;
+            color: var(--secundario);
+        }
+
+        /* Info del perfil */
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+            font-size: 14px;
+        }
+        .info-item:last-child { border-bottom: none; }
+        .info-item .icono { font-size: 18px; flex-shrink: 0; }
+        .info-item .etiqueta { color: var(--secundario); font-size: 12px; }
+        .info-item .valor { color: var(--texto); font-weight: 500; }
+
+        /* Botón cerrar sesión */
+        .btn-cerrar {
+            width: 100%;
+            margin-top: 18px;
+            padding: 11px;
+            background: #fff;
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-cerrar:hover { background: #dc3545; color: white; }
+
+        /* ── Columna derecha ── */
+        .derecha { display: flex; flex-direction: column; gap: 24px; }
+
+        .card-titulo {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--azul-dark);
+            margin: 0 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-titulo .count {
+            background: var(--azul-acento);
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 999px;
+        }
+
+        /* Grid de publicaciones */
+        .grid-pub {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .tarjeta-pub {
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            background: var(--blanco);
+        }
+        .tarjeta-pub:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .tarjeta-pub-img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+        .tarjeta-pub-body { padding: 10px; }
+        .tarjeta-pub-cat {
+            font-size: 10px;
+            color: var(--azul-acento);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .tarjeta-pub-nombre {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--texto);
+            margin: 2px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .tarjeta-pub-precio {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--texto);
+        }
+
+        /* Reseñas */
+        .resena-item {
+            padding: 14px;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .resena-item:last-child { margin-bottom: 0; }
+        .resena-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .resena-nombre { font-weight: 600; font-size: 14px; }
+        .resena-estrellas { color: #f4a261; font-size: 16px; }
+        .resena-texto {
+            font-size: 13px;
+            color: var(--secundario);
+            background: #f9f9f9;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        /* Estado vacío */
+        .estado-vacio-perfil {
+            color: var(--secundario);
+            font-size: 14px;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Skeleton loading */
+        .skeleton {
+            background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.2s infinite;
+            border-radius: 6px;
+            height: 16px;
+            margin: 6px 0;
+        }
+        @keyframes shimmer {
+            0%   { background-position: -200% 0; }
+            100% { background-position:  200% 0; }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .perfil-wrapper {
+                grid-template-columns: 1fr;
+                margin: 16px auto;
+                padding: 0 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER (igual que main.html) -->
+<header class="header">
+    <h1>UNISON</h1>
+    <div class="cabecera">
+        <h4 id="titulo">MarketPlace</h4>
+        <a href="main.html" id="btn-volver" style="text-decoration:none;color:black;">← Volver</a>
+        <div class="menu-waffle-contenedor">
+            <button class="btn-waffle" id="btn-waffle" aria-label="Menú de opciones">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <circle cx="6" cy="6" r="2"></circle><circle cx="12" cy="6" r="2"></circle><circle cx="18" cy="6" r="2"></circle>
+                    <circle cx="6" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="18" cy="12" r="2"></circle>
+                    <circle cx="6" cy="18" r="2"></circle><circle cx="12" cy="18" r="2"></circle><circle cx="18" cy="18" r="2"></circle>
+                </svg>
+            </button>
+            <div class="dropdown-waffle" id="dropdown-waffle">
+                <a href="perfil.html" class="item-dropdown">👤 Mi Perfil</a>
+                <a href="post.html" class="item-dropdown">➕ Crear Publicación</a>
+                <a href="settings.html" class="item-dropdown">⚙️ Configuraciones</a>
+                <div class="divisor-dropdown"></div>
+                <a href="../back-end/logout.php" class="item-dropdown text-rojo">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- CONTENIDO DEL PERFIL -->
+<div class="perfil-wrapper" id="perfil-wrapper">
+
+    <!-- Columna izquierda -->
+    <aside>
+        <div class="card" id="card-info">
+            <div class="skeleton" style="width:100px;height:100px;border-radius:50%;margin:0 auto 12px;"></div>
+            <div class="skeleton" style="width:70%;margin:0 auto 8px;"></div>
+            <div class="skeleton" style="width:40%;margin:0 auto;"></div>
+        </div>
+    </aside>
+
+    <!-- Columna derecha -->
+    <div class="derecha">
+        <div class="card" id="card-publicaciones">
+            <div class="skeleton" style="width:40%;height:20px;margin-bottom:16px;"></div>
+            <div class="grid-pub">
+                <div class="skeleton" style="height:150px;border-radius:10px;"></div>
+                <div class="skeleton" style="height:150px;border-radius:10px;"></div>
+                <div class="skeleton" style="height:150px;border-radius:10px;"></div>
+            </div>
+        </div>
+        <div class="card" id="card-resenas">
+            <div class="skeleton" style="width:35%;height:20px;margin-bottom:16px;"></div>
+            <div class="skeleton" style="height:70px;border-radius:10px;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============================================================
+// ARCHIVO: javascript (inline) — perfil.html
+// ============================================================
+
+// Waffle menu
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("btn-waffle");
+    const dd  = document.getElementById("dropdown-waffle");
+    if (btn && dd) {
+        btn.addEventListener("click", e => { e.stopPropagation(); dd.classList.toggle("activo"); });
+        document.addEventListener("click", e => { if (!dd.contains(e.target)) dd.classList.remove("activo"); });
+    }
+    cargarPerfil();
+});
+
+// Estrellas visuales
+function estrellas(n) {
+    const llena = '★';
+    const vacia = '☆';
+    let s = '';
+    for (let i = 1; i <= 5; i++) s += i <= Math.round(n) ? llena : vacia;
+    return s;
+}
+
+function formatearPrecio(n) {
+    return '$' + parseFloat(n).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+async function cargarPerfil() {
+
+    try {
+        const res  = await fetch('../back-end/getPerfil.php');
+        const data = await res.json();
+
+        if (!data.exito) {
+            // No hay sesión: redirigir a login
+            window.location.href = 'login.html';
+            return;
+        }
+
+        renderInfoUsuario(data);
+        renderPublicaciones(data.publicaciones);
+        renderResenas(data.resenas, data.promedio, data.total_resenas);
+
+    } catch (e) {
+        console.error('Error al cargar perfil:', e);
+    }
+}
+
+function renderInfoUsuario(d) {
+    const inicial = d.nombre ? d.nombre.charAt(0).toUpperCase() : '?';
+
+    const fotoHtml = d.foto
+        ? `<img class="avatar" src="${d.foto}" alt="Foto de perfil">`
+        : `<div class="avatar-placeholder">${inicial}</div>`;
+
+    const promedioHtml = d.total_resenas > 0
+        ? `<div class="estrellas-perfil">
+                <span style="color:#f4a261">${estrellas(d.promedio)}</span>
+                <span class="num">${d.promedio} (${d.total_resenas} reseña${d.total_resenas !== 1 ? 's' : ''})</span>
+           </div>`
+        : `<span style="color:#999;font-size:13px;">Sin reseñas aún</span>`;
+
+    document.getElementById('card-info').innerHTML = `
+        <div class="avatar-contenedor">
+            ${fotoHtml}
+            <h2 class="nombre-perfil">${d.nombre}</h2>
+            <span class="badge-tipo">${d.tipo_usuario || 'Usuario'}</span>
+            ${promedioHtml}
+        </div>
+
+        <div class="info-item">
+            <span class="icono">✉️</span>
+            <div>
+                <div class="etiqueta">Correo</div>
+                <div class="valor">${d.correo}</div>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <span class="icono">🎓</span>
+            <div>
+                <div class="etiqueta">Departamento</div>
+                <div class="valor">${d.departamento || 'No especificado'}</div>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <span class="icono">🕐</span>
+            <div>
+                <div class="etiqueta">Horario</div>
+                <div class="valor">${d.horario || 'No especificado'}</div>
+            </div>
+        </div>
+
+        <a href="../back-end/logout.php" class="btn-cerrar">Cerrar sesión</a>
+    `;
+}
+
+function renderPublicaciones(pubs) {
+    const card = document.getElementById('card-publicaciones');
+
+    if (!pubs || pubs.length === 0) {
+        card.innerHTML = `
+            <h3 class="card-titulo">Mis publicaciones <span class="count">0</span></h3>
+            <div class="estado-vacio-perfil">Aún no tienes publicaciones. <a href="post.html">¡Crea una!</a></div>
+        `;
+        return;
+    }
+
+    const tarjetas = pubs.map(p => {
+        // Intentamos desempaquetar las fotos
+        let fotos = [];
+        try {
+            fotos = JSON.parse(p.imagen);
+        } catch (e) {
+            // Si falla (porque es un producto viejo con formato de texto simple),
+            // lo metemos a un array nosotros mismos para que el código no truene.
+            fotos = p.imagen ? [p.imagen] : [];
+        }
+        // Decidimos qué imagen mostrar (la primera del array)
+        const imagenHTML = (fotos && fotos.length > 0)
+            ? `<img src="${fotos[0]}" alt="foto" style="width: 100%; height: 100%; object-fit: cover; display: block;">`
+            : `<div style="font-size: 30px; color: #aaa;">sin foto</div>`;
+
+        return `
+        <div class="tarjeta-pub" onclick="window.location.href='products.html?id=${p.id_publicacion}'">
+            <div class="tarjeta-pub-img">${imagenHTML}</div>
+            <div class="tarjeta-pub-body">
+                <div class="tarjeta-pub-cat">${p.categoria}</div>
+                <div class="tarjeta-pub-nombre">${p.titulo}</div>
+                <div class="tarjeta-pub-precio">${formatearPrecio(p.precio)}</div>
+            </div>
+        </div>
+     `;
+    }).join("");
+
+    card.innerHTML = `
+        <h3 class="card-titulo">Mis publicaciones <span class="count">${pubs.length}</span></h3>
+        <div class="grid-pub">${tarjetas}</div>
+    `;
+}
+
+function renderResenas(resenas, promedio, total) {
+    const card = document.getElementById('card-resenas');
+
+    if (!resenas || resenas.length === 0) {
+        card.innerHTML = `
+            <h3 class="card-titulo">Reseñas recibidas <span class="count">0</span></h3>
+            <div class="estado-vacio-perfil">Aún no tienes reseñas.</div>
+        `;
+        return;
+    }
+
+    const items = resenas.map(r => `
+        <div class="resena-item">
+            <div class="resena-cabecera">
+                <span class="resena-nombre">${r.revisor}</span>
+                <span class="resena-estrellas">${estrellas(r.calificacion)}</span>
+            </div>
+            <div class="resena-texto">${r.comentario || '<em>Sin comentario</em>'}</div>
+        </div>
+    `).join('');
+
+    card.innerHTML = `
+        <h3 class="card-titulo">Reseñas recibidas <span class="count">${total}</span></h3>
+        ${items}
+    `;
+}
+</script>
+
+</body>
+</html>

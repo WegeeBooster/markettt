@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Producto | Unison</title>
+    <link rel="stylesheet" href="../css/styleMain.css">
+    <link rel="stylesheet" href="../css/styleProducts.css">
+</head>
+<body style="display:none;">
+
+    <header class="header">
+        <div class="cabecera">
+            <h4 id="titulo" onclick="window.location.href='main.html'" style="cursor: pointer;">⬅ Volver al MarketPlace</h4>
+        </div>
+    </header>
+
+    <main class="contenedor-producto">
+
+        <section class="seccion-fotos">
+            <div class="foto-principal" id="prod-imagen">
+                📦 Cargando imagen...
+            </div>
+        </section>
+
+        <section class="seccion-info">
+            <div class="info-basica">
+                <span class="etiqueta-categoria">Categoría: </span>
+                <span class="etiqueta-categoria" id="prod-categoria">Categoría</span>
+                <h1 class="titulo-producto" id="prod-titulo">Cargando producto...</h1>
+                <h2 class="precio-producto" id="prod-precio">$0.00</h2>
+                <p class="descripcion-producto" id="prod-descripcion">
+                    Por favor espera mientras obtenemos los detalles de este artículo...
+                </p>
+            </div>
+
+            <hr class="divisor-linea">
+
+            <div class="info-vendedor">
+                <h3>Información del Vendedor</h3>
+                <div class="tarjeta-vendedor">
+                    <div class="avatar-vendedor">
+                        <img id="vend-foto" src="../uploads/default-avatar.jpg" alt="Vendedor" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                    </div>
+                    <div class="datos-vendedor">
+                        <p class="nombre-vendedor" id="vend-nombre">Cargando vendedor...</p>
+                        <p class="facultad-vendedor" id="vend-contacto">...</p>
+                        <p id="vend-horario" style="font-size: 0.85em; color: #666; margin-top: 4px;">Horario: ...</p>
+                    </div>
+                </div>
+
+                <button class="btn-mensaje" id="btn-contactar" style="margin-bottom: 10px;">
+                    💬 Enviar Mensaje al Vendedor
+                </button>
+
+                <div style="display: flex; gap: 10px; width: 100%;">
+                    <a id="btn-whatsapp" href="#" target="_blank" style="display: none; flex: 1; text-align: center; background: #25D366; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px;">
+                        WhatsApp
+                    </a>
+                    <a id="btn-instagram" href="#" target="_blank" style="display: none; flex: 1; text-align: center; background: #E1306C; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px;">
+                        Instagram
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="../javascript/products.js"></script>
+</body>
+</html>

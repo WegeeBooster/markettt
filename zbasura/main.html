@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Marketplace Unison</title>
+
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="logo">
+        <img src="..\marketplace_unison.png">
+    </div>
+
+    <button class="category active">Todo</button>
+    <button class="category">Comida</button>
+    <button class="category">Electronicos</button>
+    <button class="category">Ropa</button>
+    <button class="category">Libros</button>
+    <button class="category">Otros</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+
+        <div class="search-container">
+            <input type="text"  class="search-input">
+            <div class="search-icon">🔍</div>
+        </div>
+
+        <button class="login-btn">Iniciar sesión/Registrarse</button>
+        <div class="profile"></div>
+
+    </div>
+
+    <!-- CONTROLES -->
+    <div class="controls">
+
+    <div class="dropdown">
+        <div class="control-btn" onclick="toggleMenu('ordenarMenu')">☰ Ordenar</div>
+
+        <div class="dropdown-menu" id="ordenarMenu">
+            <label class="option">
+                <input type="checkbox"> Más reciente
+            </label>
+
+            <label class="option">
+                <input type="checkbox"> Más antiguo
+            </label>
+
+            <label class="option">
+                <input type="checkbox"> Precio menor
+            </label>
+
+            <label class="option">
+                <input type="checkbox"> Precio mayor
+            </label>
+        </div>
+    </div>
+
+
+    <div class="dropdown">
+        <div class="control-btn" onclick="toggleMenu('filtrarMenu')">⚙ Filtrar</div>
+
+        <div class="dropdown-menu" id="filtrarMenu">
+            <label class="option">
+                <input type="checkbox"> Disponible
+            </label>
+
+            <label class="option">
+                <input type="checkbox"> Usado
+            </label>
+
+            <label class="option">
+                <input type="checkbox"> Nuevo
+            </label>
+        </div>
+    </div>
+
+</div>
+
+    <!-- GRID -->
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d1">
+            <div class="card-content">
+                <div class="card-title">Control Xbox series x</div>
+                <div class="location">Espinoza</div>
+
+                <div class="tags">
+                    <div class="tag blue">#VIDEOJUEGOS</div>
+                    <div class="tag orange">#USADO</div>
+                    <div class="tag gray">#DERECHO</div>
+                </div>
+            </div>
+
+            <div class="status">DISPONIBLE</div>
+            <div class="stock">1/1</div>
+        </div>
+
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+function toggleMenu(menuId){
+
+    const menu = document.getElementById(menuId);
+
+    if(menu.style.display === "flex"){
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "flex";
+    }
+
+}
+
+</script>
+
+</body>
+</html>

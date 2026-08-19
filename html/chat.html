@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | Marketplace Unison</title>
+    <link rel="stylesheet" href="../css/styleMain.css">
+    <link rel="stylesheet" href="../css/styleChat.css"> </head>
+<body>
+
+    <header class="chat-header">
+        <button onclick="window.history.back()" class="btn-volver">⬅ Volver</button>
+        <div class="info-contacto">
+            <div class="avatar-mini">👤</div>
+            <div>
+                <h3 id="chat-nombre-vendedor">Cargando vendedor...</h3>
+                <p id="chat-titulo-producto" class="subtitulo-prod">Cargando producto...</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="chat-contenedor" id="caja-mensajes">
+        <div class="mensaje-sistema">Iniciando conversación segura...</div>
+    </main>
+
+    <footer class="chat-input-area">
+        <input type="text" id="input-mensaje" placeholder="Escribe un mensaje..." autocomplete="off">
+        <button id="btn-enviar-mensaje">Enviar </button>
+    </footer>
+
+    <script src="../javascript/chat.js"></script>
+</body>
+</html>

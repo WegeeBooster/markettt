@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styleMain.css">
+    <title>Marketplace Unison</title>
+</head>
+<body>
+
+  <header class="header">
+    <h1 >UNISON</h1>
+
+    <div class="cabecera">
+      <h4 id="titulo">MarketPlace</h4>
+
+        <div class="search-container">
+            <input type="text" id="inputBuscar" class="search-input" placeholder="Buscar productos..." oninput="manejarBusqueda()" >
+            <div class="search-icon">🔍</div>
+        </div>
+
+        <a href="login.html" id="btn-login">Iniciar sesión</a>
+        <!-- locura-->
+        <div class="menu-waffle-contenedor">
+
+            <button class="btn-waffle" id="btn-waffle" aria-label="Menú de opciones">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <circle cx="6" cy="6" r="2"></circle>
+                    <circle cx="12" cy="6" r="2"></circle>
+                    <circle cx="18" cy="6" r="2"></circle>
+                    <circle cx="6" cy="12" r="2"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                    <circle cx="18" cy="12" r="2"></circle>
+                    <circle cx="6" cy="18" r="2"></circle>
+                    <circle cx="12" cy="18" r="2"></circle>
+                    <circle cx="18" cy="18" r="2"></circle>
+                </svg>
+            </button>
+
+            <div class="dropdown-waffle" id="dropdown-waffle">
+                <a href="perfil.html" class="item-dropdown">👤 Mi Perfil</a>
+                <a href="post.html" class="item-dropdown">➕ Crear Publicación</a>
+                <a href="settings.html" class="item-dropdown">⚙️ Configuraciones</a>
+
+                <div class="divisor-dropdown"></div>
+                <a href="../back-end/logout.php" class="item-dropdown text-rojo">Cerrar Sesión</a>
+            </div>
+
+        </div>
+        <!--fin locura-->
+    </div>
+  </header>
+
+
+
+  <div class="divisor">
+
+    <aside class="sidebar">
+        <img src="../marketplace_unison.png" alt="Logo" id="logo">
+
+      <nav>
+          <div id="contenedorFiltros">
+              <p>Cargando categorías...</p>
+          </div>
+      </nav>
+
+    </aside>
+
+    <main>
+        <p class="info-resultados" id="infoResultados"></p>
+        <div class="grid-productos" id="gridProductos">
+            <div class="estado-cargando">Cargando productos...</div>
+        </div>
+    </main>
+
+  </div>
+
+  <script src="../javascript/searchProducts.js"></script>
+  <script>
+       // ========================================================
+      // LÓGICA DEL MENÚ WAFFLE
+      // ========================================================
+      document.addEventListener("DOMContentLoaded", () => {
+          const btnWaffle = document.getElementById("btn-waffle");
+          const dropdownWaffle = document.getElementById("dropdown-waffle");
+
+          if (btnWaffle && dropdownWaffle) {
+              // 1. Abrir/Cerrar al darle clic al ícono
+              btnWaffle.addEventListener("click", (evento) => {
+                  evento.stopPropagation(); // Evita que el clic se propague al resto de la página
+                  dropdownWaffle.classList.toggle("activo");
+              });
+
+              // 2. Cerrar el menú si le das clic a cualquier otra parte de la pantalla
+              document.addEventListener("click", (evento) => {
+                  if (!dropdownWaffle.contains(evento.target)) {
+                      dropdownWaffle.classList.remove("activo");
+                  }
+              });
+          }
+      });
+  </script>
+</body>
+</html>

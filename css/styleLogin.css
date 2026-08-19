@@ -1,0 +1,112 @@
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f2f2f2;
+}
+
+/* centra todos */
+.contenedor{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    /*height:100vh; */
+}
+
+/* caja del login form */
+.login{
+    background:white;
+    padding:40px;
+    border-radius:10px;
+    width:300px;
+    box-shadow:0px 0px 10px rgba(0,0,0,0.2);
+}
+
+
+img{
+    width:  100%;
+    height: auto;
+    align-self: center;
+}
+
+
+/* titulo */
+.login h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* inputs */
+.login input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+    box-sizing:border-box;
+
+}
+
+/* boton */
+.login button{
+    width:100%;
+    padding:13px;
+    border:none;
+    background:#007BFF;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+    box-sizing:border-box;
+
+}
+
+/* efecto hover */
+.login button:hover{
+    background:#0056b3;
+}
+
+.login .boton {
+
+    width:100%;
+    display:block;
+    text-align:center;
+    margin-top:20px ;
+    padding:10px;
+    border:1px solid #ccc;
+    background:whitesmoke;
+    color:black;
+    border-radius:5px;
+    cursor:pointer;
+    text-decoration: none;
+    font-weight:550;/*texto en negritas*/
+    font-size: 15px;
+    box-sizing:border-box;
+
+
+}
+
+.boton:hover {
+  background-color: lightgray;
+}
+
+.link{
+    color: #0089b3;
+    text-decoration:none;
+}
+
+/* responsive para celular */
+@media (max-width:480px){
+
+.login{
+    width:80%;
+    padding:25px;
+}
+
+.contenedor{
+    width: 100%;
+    height: 100vh;
+}
+
+
+}
+
+
